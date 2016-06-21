@@ -1,0 +1,21 @@
+{
+  "name": "API.AI Line integration",
+  "description": "Api.ai Line integration allows you to create Line bots with natural language understanding based on Api.ai technology.",
+  "repository": "https://github.com/api-ai/apiai-line-bot",
+  "logo": "http://xvir.github.io/img/apiai.png",
+  "keywords": ["api.ai", "line", "natural language"],
+  "env": {
+    "APIAI_ACCESS_TOKEN": {
+      "description": "Client access token for Api.ai",
+      "value": ""
+    },
+    "APIAI_LANG": {
+      "description": "Agent language",
+      "value": "en",
+      "required": false
+    }
+  },
+  "engines": {
+    "node": "5.10.1"
+  }
+}
