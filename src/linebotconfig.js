@@ -50,21 +50,30 @@ module.exports = class LineBotConfig {
         this._devConfig = value;
     }
 
-    constructor(apiaiAccessToken, apiaiLang) {
+    constructor(apiaiAccessToken, apiaiLang, channelId, channelSecret, MID) {
         this._apiaiAccessToken = apiaiAccessToken;
         this._apiaiLang = apiaiLang;
+        this._channelId = channelId;
+        this._channelSecret = channelSecret;
+        this._MID = MID;
     }
 
     toPlainDoc() {
         return {
             apiaiAccessToken: this._apiaiAccessToken,
-            apiaiLang: this._apiaiLang
+            apiaiLang: this._apiaiLang,
+            channelId: this._channelId,
+            channelSecret: this.channelSecret,
+            MID: this._MID
         }
     }
 
-    static fromPlainDoc(doc){
+    static fromPlainDoc(doc) {
         return new LineBotConfig(
             doc.apiaiAccessToken,
-            doc.apiaiLang);
+            doc.apiaiLang,
+            doc.channelId,
+            doc.channelSecret,
+            doc.MID);
     }
 };
