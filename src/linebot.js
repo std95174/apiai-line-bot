@@ -46,8 +46,8 @@ module.exports = class LineBot {
             console.log("message", message);
         }
 
-        if (message.from && message.content && message.content.text) {
-            let chatId = message.from;
+        if (message.content && message.content.from && message.content.text) {
+            let chatId = message.content.from;
             let messageText = message.content.text;
 
             console.log(chatId, messageText);
@@ -69,7 +69,7 @@ module.exports = class LineBot {
                         if (LineBot.isDefined(responseText)) {
                             console.log('Response as text message');
                             // TODO
-                            this.postLineMessage(chatId, messageText);
+                            this.postLineMessage(chatId, responseText);
                         } else {
                             console.log('Received empty speech');
                         }
@@ -99,7 +99,7 @@ module.exports = class LineBot {
             json: {
                 to: [to],
                 toChannel: 1383378250,
-                eventType: '138311608800106203',
+                eventType: "138311608800106203",
                 content: {
                     contentType: 1,
                     toType: 1,
