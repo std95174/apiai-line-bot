@@ -2,6 +2,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const crypto = require('crypto');
 
 const LineBot = require('./linebot');
 const LineBotConfig = require('./linebotconfig');
@@ -28,13 +29,25 @@ const bot = new LineBot(botConfig);
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+    verify: function(req, res, buf, encoding) {
+        // raw body for signature check
+        req.rawBody = buf.toString();
+    }
+}));
 
 app.post('/webhook', (req, res) => {
 
     console.log('POST received');
+    
+    let signature = req.get('X-LINE-ChannelSignature');
+    let rawBody = req.rawBody;
+    let hash = crypto.createHmac('sha256', LINE_CHANNEL_SECRET).update(rawBody).digest('base64');
 
-    // TODO Add signature verification
+    if (hash != signature) {
+        console.log("Unauthorized request");
+        return res.status(401).send('Wrong request signature');
+    }
 
     try {
 
