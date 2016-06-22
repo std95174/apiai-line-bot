@@ -13,6 +13,18 @@
       "description": "Agent language",
       "value": "en",
       "required": false
+    },
+    "LINE_CHANNEL_ID": {
+      "description": "Channel ID from Line dashboard",
+      "value": ""
+    },
+    "LINE_CHANNEL_SECRET": {
+      "description": "Channel Secret from Line dashboard",
+      "value": ""
+    },
+    "LINE_MID": {
+      "description": "MID from Line dashboard",
+      "value": ""
     }
   },
   "engines": {
