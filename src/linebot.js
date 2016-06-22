@@ -68,7 +68,6 @@ module.exports = class LineBot {
 
                         if (LineBot.isDefined(responseText)) {
                             console.log('Response as text message');
-                            // TODO
                             this.postLineMessage(chatId, responseText);
                         } else {
                             console.log('Received empty speech');
