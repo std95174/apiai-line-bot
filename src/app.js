@@ -39,6 +39,7 @@ app.use(bodyParser.json({
 app.post('/webhook', (req, res) => {
 
   console.log('POST received');
+  console.log(JSON.stringify(req.body));
 
   let signature = req.get('X-LINE-Signature');
   let rawBody = req.rawBody;
@@ -56,9 +57,12 @@ app.post('/webhook', (req, res) => {
 
     req.body.events.forEach((item) => {
       if (item.type === "message") {
-        bot.processMessage(item, res)
-            .catch(err => console.error(err));
+        if (item.replyToken !== "00000000000000000000000000000000"
+            && item.replyToken !== "ffffffffffffffffffffffffffffffff") {
 
+          bot.processMessage(item, res)
+              .catch(err => console.error(err));
+        }
       } else if (item.type === "postback") {
         const postbackData = item.postback ? item.postback.data : '';
         console.log("postbackData", postbackData);
@@ -66,7 +70,7 @@ app.post('/webhook', (req, res) => {
     });
 
   } catch (err) {
-    return res.status(400).send(`Error while processing ${err.message}`);
+    console.error('Error while message processing', err);
   }
 });
 
